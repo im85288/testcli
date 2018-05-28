@@ -2,12 +2,132 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "mpani": {
+      "root": "apps/mpani/",
+      "sourceRoot": "apps/mpani/src",
+      "projectType": "application",
+      "prefix": "testcli",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/mpani",
+            "index": "apps/mpani/src/index.html",
+            "main": "apps/mpani/src/main.ts",
+            "polyfills": "apps/mpani/src/polyfills.ts",
+            "tsConfig": "apps/mpani/tsconfig.app.json",
+            "assets": [
+              "apps/mpani/src/favicon.ico",
+              "apps/mpani/src/assets"
+            ],
+            "styles": [
+              "apps/mpani/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mpani/src/environments/environment.ts",
+                  "with": "apps/mpani/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "mpani:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "mpani:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mpani:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/mpani/src/test.ts",
+            "polyfills": "apps/mpani/src/polyfills.ts",
+            "tsConfig": "apps/mpani/tsconfig.spec.json",
+            "karmaConfig": "apps/mpani/karma.conf.js",
+            "styles": [
+              "apps/mpani/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/mpani/src/favicon.ico",
+              "apps/mpani/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/mpani/tsconfig.app.json",
+              "apps/mpani/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "mpani-e2e": {
+      "root": "apps/mpani-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/mpani-e2e/protractor.conf.js",
+            "devServerTarget": "mpani:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/mpani-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/schematics"
-  }
+  },
+  "defaultProject": "mpani"
 }

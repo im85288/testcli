@@ -1,5 +1,11 @@
 {
   "npmScope": "testcli",
   "projects": {
+    "mpani": {
+      "tags": []
+    },
+    "mpani-e2e": {
+      "tags": []
+    }
   }
 }
