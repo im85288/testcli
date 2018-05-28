@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker
 
       # Download and cache dependencies
       - restore_cache:
@@ -33,7 +34,19 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # run tests!
+      # run build and test
       - run: yarn ng build --prod
       - run: yarn ng test mpani --watch=false
       - run: yarn ng test admin --watch=false
+
+      -run:
+          command:
+              docker build --rm -f Dockerfile -t mpani.azurecr.io/test:1.0 .
+      -run:
+          command:
+              docker login --username $DOCKER_USER --password $DOCKER_PASS mpani.azurecr.io
+      -run:
+          command:
+              docker push mpani.azurecr.io/test:1.0
+
+
