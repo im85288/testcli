@@ -39,13 +39,13 @@ jobs:
       - run: yarn ng test mpani --watch=false
       - run: yarn ng test admin --watch=false
 
-      -run:
+      - run:
           command:
               docker build --rm -f Dockerfile -t mpani.azurecr.io/test:1.0 .
-      -run:
+      - run:
           command:
               docker login --username $DOCKER_USER --password $DOCKER_PASS mpani.azurecr.io
-      -run:
+      - run:
           command:
               docker push mpani.azurecr.io/test:1.0
 
