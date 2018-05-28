@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "serve:mpani": "ng s --project=mpani --port 4201",
+    "serve:admin": "ng s --project=admin --port 4202",
+    "ng": "ng",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
